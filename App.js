@@ -17,8 +17,16 @@ const soundsList=[
 
 const App=()=>{
 
- const handleButtonSound=()=>{
+ const handleButtonSound=(sound)=>{
+  const soundVar=new Sound(sound,Sound.MAIN_BUNDLE,(err)=>{
+    if(err){
+      console.log("NOT ABLE TO PLAY SOUND")
+    }
+  })
 
+  setTimeout(()=>{ soundVar.play()},1000)
+
+  soundVar.release()
   }
 
   return(
@@ -26,7 +34,7 @@ const App=()=>{
       <Image style={styles.logo} source={require('./assets/logo.png')}/>
       <View style={styles.gridContainer}>
         {soundsList.map((eachSound)=>(
-          <TouchableOpacity key={eachSound} onPress={handleButtonSound} style={styles.box}>
+          <TouchableOpacity key={eachSound} onPress={()=>{handleButtonSound(eachSound)}} style={styles.box}>
             <Text style={styles.text}>{eachSound}</Text>
           </TouchableOpacity>
         ))}
